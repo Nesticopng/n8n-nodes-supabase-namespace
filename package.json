@@ -45,10 +45,6 @@
       "dist/nodes/VectorStoreSupabaseExtended/VectorStoreSupabaseExtended.node.js"
     ]
   },
-  "dependencies": {
-    "@langchain/community": "^0.0.20",
-    "@supabase/supabase-js": "^2.56.0"
-  },
   "devDependencies": {
     "@typescript-eslint/parser": "~8.32.0",
     "eslint": "^8.57.0",
