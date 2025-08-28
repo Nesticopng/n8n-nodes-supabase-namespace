@@ -1,19 +1,25 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-supabase-namespace",
   "version": "0.1.0",
-  "description": "",
+  "description": "Supabase Vector Store Extended node for n8n with schema and namespace support",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "n8n",
+    "supabase",
+    "vector-store",
+    "langchain",
+    "ai",
+    "embeddings"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/Nesticopng/n8n-nodes-supabase-namespace#readme",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "Néstor Cano",
+    "email": "nestor.cano.vielma@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/Nesticopng/n8n-nodes-supabase-namespace.git"
   },
   "engines": {
     "node": ">=20.15"
@@ -33,13 +39,15 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
+      "dist/credentials/SupabaseApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/VectorStoreSupabaseExtended/VectorStoreSupabaseExtended.node.js"
     ]
+  },
+  "dependencies": {
+    "@langchain/community": "^0.0.20",
+    "@supabase/supabase-js": "^2.56.0"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "~8.32.0",
@@ -47,9 +55,10 @@
     "eslint-plugin-n8n-nodes-base": "^1.16.3",
     "gulp": "^5.0.0",
     "prettier": "^3.5.3",
+    "rimraf": "^5.0.0",
     "typescript": "^5.8.2"
   },
   "peerDependencies": {
-    "n8n-workflow": "*"
+    "n8n-workflow": "^1.82.0"
   }
 }
