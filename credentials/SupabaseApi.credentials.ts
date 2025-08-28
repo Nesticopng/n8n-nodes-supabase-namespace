@@ -1,6 +1,7 @@
 import {
 	ICredentialType,
 	INodeProperties,
+	ICredentialTestRequest,
 } from 'n8n-workflow';
 
 export class SupabaseApi implements ICredentialType {
@@ -29,4 +30,17 @@ export class SupabaseApi implements ICredentialType {
 			required: true,
 		},
 	];
+
+	// The block below tells how this credential can be tested
+	test: ICredentialTestRequest = {
+		request: {
+			baseURL: '={{ $credentials.host }}',
+			url: '/rest/v1/',
+			method: 'GET',
+			headers: {
+				'apikey': '={{ $credentials.serviceRole }}',
+				'Authorization': 'Bearer {{ $credentials.serviceRole }}',
+			},
+		},
+	};
 }
