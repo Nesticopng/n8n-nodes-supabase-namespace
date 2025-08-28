@@ -8,7 +8,7 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-// Campo para seleccionar Schema
+// Field to select Schema
 const schemaField: INodeProperties = {
 	displayName: 'Use Custom Schema',
 	name: 'useCustomSchema',
@@ -28,7 +28,7 @@ const schemaNameField: INodeProperties = {
 	displayOptions: { show: { useCustomSchema: [true] } },
 };
 
-// Campo para Namespace
+// Field for Namespace
 const namespaceField: INodeProperties = {
 	displayName: 'Namespace',
 	name: 'namespace',
@@ -37,7 +37,7 @@ const namespaceField: INodeProperties = {
 	description: 'Logical partition for documents. Uses a separate namespace column for filtering.',
 };
 
-// Campo para Query Name
+// Field for Query Name
 const queryNameField: INodeProperties = {
 	displayName: 'Query Name',
 	name: 'queryName',
@@ -46,7 +46,7 @@ const queryNameField: INodeProperties = {
 	description: 'Name of the query to use for matching documents',
 };
 
-// Campos compartidos (Schema + Table + Namespace)
+// Shared fields (Schema + Table + Namespace)
 const sharedFields: INodeProperties[] = [
 	schemaField,
 	schemaNameField,
@@ -61,7 +61,7 @@ const sharedFields: INodeProperties[] = [
 	namespaceField,
 ];
 
-// Campos para inserción
+// Fields for insertion
 const insertFields: INodeProperties[] = [
 	{
 		displayName: 'Options',
@@ -82,7 +82,7 @@ const insertFields: INodeProperties[] = [
 	},
 ];
 
-// Campos para recuperación
+// Fields for retrieval
 const retrieveFields: INodeProperties[] = [
 	{
 		displayName: 'Options',
@@ -165,7 +165,7 @@ export class VectorStoreSupabaseExtended implements INodeType {
 
 				switch (operation) {
 					case 'load':
-						// Implementar operación de carga
+						// Implement load operation
 						returnData.push({
 							json: {
 								operation: 'load',
@@ -175,7 +175,7 @@ export class VectorStoreSupabaseExtended implements INodeType {
 						});
 						break;
 					case 'insert':
-						// Implementar operación de inserción
+						// Implement insert operation
 						returnData.push({
 							json: {
 								operation: 'insert',
@@ -185,7 +185,7 @@ export class VectorStoreSupabaseExtended implements INodeType {
 						});
 						break;
 					case 'retrieve':
-						// Implementar operación de recuperación
+						// Implement retrieve operation
 						returnData.push({
 							json: {
 								operation: 'retrieve',
@@ -195,7 +195,7 @@ export class VectorStoreSupabaseExtended implements INodeType {
 						});
 						break;
 					case 'update':
-						// Implementar operación de actualización
+						// Implement update operation
 						returnData.push({
 							json: {
 								operation: 'update',

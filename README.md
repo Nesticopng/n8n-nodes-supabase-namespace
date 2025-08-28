@@ -1,107 +1,108 @@
 # n8n-nodes-supabase-namespace
 
-Este es un nodo comunitario de n8n que te permite trabajar con Supabase Vector Store con soporte extendido para esquemas personalizados y namespaces.
+This is an n8n community node that allows you to work with Supabase Vector Store with extended support for custom schemas and namespaces.
 
-Supabase Vector Store es una base de datos vectorial que permite almacenar y buscar embeddings de documentos de manera eficiente, ideal para aplicaciones de IA y búsqueda semántica.
+Supabase Vector Store is a vector database that allows you to store and search document embeddings efficiently, ideal for AI applications and semantic search.
 
-[n8n](https://n8n.io/) es una plataforma de automatización de flujos de trabajo con [licencia fair-code](https://docs.n8n.io/reference/license/).
+[n8n](https://n8n.io/) is a workflow automation platform with [fair-code license](https://docs.n8n.io/reference/license/).
 
-[Instalación](#instalación)  
-[Operaciones](#operaciones)  
-[Credenciales](#credenciales)  
-[Compatibilidad](#compatibilidad)  
-[Uso](#uso)  
-[Recursos](#recursos)  
+[Installation](#installation)  
+[Operations](#operations)  
+[Credentials](#credentials)  
+[Compatibility](#compatibility)  
+[Usage](#usage)  
+[Resources](#resources)  
+[Version History](#version-history)  
 
-## Instalación
+## Installation
 
-Sigue la [guía de instalación](https://docs.n8n.io/integrations/community-nodes/installation/) en la documentación de nodos comunitarios de n8n.
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
-## Operaciones
+## Operations
 
-Este nodo soporta las siguientes operaciones:
+This node supports the following operations:
 
-- **Load**: Cargar un vector store existente de Supabase
-- **Insert**: Insertar nuevos documentos en el vector store
-- **Retrieve**: Recuperar documentos similares basados en consultas
-- **Update**: Actualizar documentos existentes en el vector store
-- **Retrieve as Tool**: Usar la recuperación como una herramienta en flujos de LangChain
+- **Load**: Load an existing vector store from Supabase
+- **Insert**: Insert new documents into the vector store
+- **Retrieve**: Retrieve similar documents based on queries
+- **Update**: Update existing documents in the vector store
+- **Retrieve as Tool**: Use retrieval as a tool in LangChain flows
 
-## Características Principales
+## Main Features
 
-### 🗄️ Soporte para Esquemas Personalizados
-- Utiliza esquemas de base de datos diferentes al esquema "public" por defecto
-- Configuración flexible para entornos multi-tenant
+### 🗄️ Custom Schema Support
+- Use database schemas different from the default "public" schema
+- Flexible configuration for multi-tenant environments
 
-### 🏷️ Sistema de Namespaces
-- Particionamiento lógico de documentos
-- Filtrado eficiente por namespace
-- Opción para limpiar namespaces antes de insertar nuevos datos
+### 🏷️ Namespace System
+- Logical partitioning of documents
+- Efficient filtering by namespace
+- Option to clear namespaces before inserting new data
 
-### 🔍 Consultas Personalizadas
-- Configuración de nombres de consulta personalizados
-- Soporte para filtros de metadatos avanzados
-- Integración nativa con LangChain
+### 🔍 Custom Queries
+- Configuration of custom query names
+- Support for advanced metadata filters
+- Native integration with LangChain
 
-## Credenciales
+## Credentials
 
-Para usar este nodo, necesitas configurar las credenciales de Supabase:
+To use this node, you need to configure Supabase credentials:
 
-### Prerrequisitos
-1. Una cuenta en [Supabase](https://supabase.com/)
-2. Un proyecto de Supabase configurado
-3. Una base de datos PostgreSQL con la extensión `pgvector` habilitada
+### Prerequisites
+1. An account on [Supabase](https://supabase.com/)
+2. A configured Supabase project
+3. A PostgreSQL database with the `pgvector` extension enabled
 
-### Configuración de Credenciales
-1. Ve a tu proyecto de Supabase
-2. Navega a Settings > API
-3. Copia tu **Project URL** (host)
-4. Copia tu **service_role** key (no la anon key)
-5. En n8n, configura las credenciales con:
-   - **Host**: Tu Project URL
-   - **Service Role**: Tu service_role key
+### Credential Configuration
+1. Go to your Supabase project
+2. Navigate to Settings > API
+3. Copy your **Project URL** (host)
+4. Copy your **service_role** key (not the anon key)
+5. In n8n, configure the credentials with:
+   - **Host**: Your Project URL
+   - **Service Role**: Your service_role key
 
-### Estructura de Tabla Requerida
-Tu tabla debe tener la siguiente estructura mínima:
+### Required Table Structure
+Your table must have the following minimum structure:
 ```sql
 CREATE TABLE your_table_name (
   id BIGSERIAL PRIMARY KEY,
   content TEXT,
   metadata JSONB,
-  embedding vector(1536), -- o la dimensión de tus embeddings
-  namespace TEXT -- columna para el sistema de namespaces
+  embedding vector(1536), -- or the dimension of your embeddings
+  namespace TEXT -- column for the namespace system
 );
 ```
 
-## Compatibilidad
+## Compatibility
 
-- **Versión mínima de n8n**: 1.0.0
-- **Versión mínima de Node.js**: 20.15
-- **Versiones probadas**: n8n 1.0.0+
+- **Minimum n8n version**: 1.0.0
+- **Minimum Node.js version**: 20.15
+- **Tested versions**: n8n 1.0.0+
 
-## Uso
+## Usage
 
-### Configuración Básica
-1. **Table Name**: Selecciona o escribe el nombre de tu tabla
-2. **Use Custom Schema**: Activa si quieres usar un esquema diferente a "public"
-3. **Schema**: Especifica el nombre del esquema (ej: "ai_docs", "user_data")
-4. **Namespace**: Define un namespace para organizar tus documentos
+### Basic Configuration
+1. **Table Name**: Select or write the name of your table
+2. **Use Custom Schema**: Activate if you want to use a schema different from "public"
+3. **Schema**: Specify the schema name (e.g., "ai_docs", "user_data")
+4. **Namespace**: Define a namespace to organize your documents
 
-### Casos de Uso Comunes
+### Common Use Cases
 
-#### 📚 Gestión de Documentos por Cliente
+#### 📚 Client Document Management
 ```json
 {
   "tableName": "documents",
   "schema": "client_data",
-  "namespace": "cliente_123",
+  "namespace": "client_123",
   "options": {
     "clearNamespace": true
   }
 }
 ```
 
-#### 🔍 Búsqueda Semántica
+#### 🔍 Semantic Search
 ```json
 {
   "tableName": "knowledge_base",
@@ -115,7 +116,7 @@ CREATE TABLE your_table_name (
 }
 ```
 
-#### 🔄 Actualización de Datos
+#### 🔄 Data Update
 ```json
 {
   "tableName": "user_preferences",
@@ -124,49 +125,49 @@ CREATE TABLE your_table_name (
 }
 ```
 
-### Integración con LangChain
-Este nodo se integra perfectamente con flujos de LangChain en n8n, permitiendo:
-- Cadenas de razonamiento complejas
-- Agentes conversacionales
-- Sistemas de recomendación
-- Análisis de documentos
+### LangChain Integration
+This node integrates perfectly with LangChain flows in n8n, enabling:
+- Complex reasoning chains
+- Conversational agents
+- Recommendation systems
+- Document analysis
 
-## Recursos
+## Resources
 
-* [Documentación de nodos comunitarios de n8n](https://docs.n8n.io/integrations/#community-nodes)
-* [Documentación oficial de Supabase](https://supabase.com/docs)
-* [Guía de pgvector](https://github.com/pgvector/pgvector)
-* [Documentación de LangChain](https://python.langchain.com/docs/get_started/introduction)
-* [Repositorio del proyecto](https://github.com/Nesticopng/n8n-nodes-supabase-namespace)
+* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+* [Official Supabase documentation](https://supabase.com/docs)
+* [pgvector guide](https://github.com/pgvector/pgvector)
+* [LangChain documentation](https://python.langchain.com/docs/get_started/introduction)
+* [Project repository](https://github.com/Nesticopng/n8n-nodes-supabase-namespace)
 
-## Historial de Versiones
+## Version History
 
-### v0.1.0 (Actual)
-- ✅ Soporte básico para Supabase Vector Store
-- ✅ Sistema de namespaces implementado
-- ✅ Soporte para esquemas personalizados
-- ✅ Operaciones CRUD completas
-- ✅ Integración con LangChain
-- ✅ Filtros de metadatos avanzados
+### v0.1.0 (Current)
+- ✅ Basic support for Supabase Vector Store
+- ✅ Namespace system implemented
+- ✅ Support for custom schemas
+- ✅ Complete CRUD operations
+- ✅ LangChain integration
+- ✅ Advanced metadata filters
 
-## Contribuciones
+## Contributing
 
-Las contribuciones son bienvenidas! Por favor:
+Contributions are welcome! Please:
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Licencia
+## License
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## Autor
+## Author
 
 **Néstor Cano** - [nestor.cano.vielma@gmail.com](mailto:nestor.cano.vielma@gmail.com)
 
 ---
 
-⭐ Si este nodo te es útil, ¡considera darle una estrella al repositorio!
+⭐ If this node is useful to you, consider giving the repository a star!
